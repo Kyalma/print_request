@@ -33,22 +33,25 @@ STATUS_IMPRESSION = (
 
 
 class SubmissionModel(models.Model):
-    id_submission = models.UUIDField(
-        primary_key=True, default=uuid.uuid4, editable=False)
+    id_submission = models.UUIDField(primary_key=True, default=uuid.uuid4)
     designation = models.CharField(max_length=255)
     about = models.TextField()
     stl = models.FileField()
-    id_printer = models.UUIDField(default=uuid.uuid4)
+    # Printer parameters
+    id_printer = models.ForeignKey(
+        PrinterModel, on_delete=models.SET_NULL, blank=False)
     hotend_diameter = models.FloatField()
     layer_resolution = models.IntegerField()
-    id_material = models.UUIDField(default=uuid.uuid4)
+    # material parameters
+    id_material = models.ForeignKey(
+        MaterialModel, on_delete=models.SET_NULL, blank=False)
     support = models.BooleanField(default=False)
     copies = models.IntegerField(default=0)
+    # misc
     submission_date = models.DateField(auto_now_add=True)
     update_date = models.DateField(auto_now=True)
     status = models.CharField(
         max_length=1, choices=STATUS_IMPRESSION, default=DEFAULT_STATUS)
-
 
 # Certains paramètres sont en relation avec les paramètres de l'imprimante
 # L'imprimante doit donc avoir une entrée en base, définie selon le modèle:
@@ -63,9 +66,17 @@ class SubmissionModel(models.Model):
 #   Dual_extruder (Boolean) -- Dispose de deux têtes d'impression
 #   Heated_bed (Boolean) -- Dispose d'un plateau chauffant
 
+
+class PrinterModel(models.Model):
+    id_printer = models.UUIDField(primary_key=True, default=uuid.uuid4)
+
 # Chaque consommable est aussi renseigné en base
 #   id_material (Integer)
 #   type (CharField, 12) -- Type de consommable (PLA, ABS, ...)
 #   variant (Charfield, 255) -- Couleur, Spécial, ...
 #   diameter (Integer / Float) -- Diamètre du filament
 #   available (boolean) -- En stock ou non
+
+
+class MaterialModel(models.Model):
+    id_material = models.UUIDField(primary_key=True, default=uuid.uuid4)
