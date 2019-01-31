@@ -1,0 +1,13 @@
+{% extends "pullapp/base_wo_navbar.html" %}
+
+{% block title %}Sign Up{% endblock %}
+{% block content %}
+<h2>Sign up</h2>
+<form method="post">
+    {% csrf_token %}
+    <table>
+    {{ form.as_table }}
+    </table>
+    <button type="submit">Submit</button>
+</form>
+{% endblock %}

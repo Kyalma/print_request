@@ -1,0 +1,14 @@
+{% extends "pullapp/base.html" %}
+{% block title %}New request{% endblock %}
+{% block content %}
+
+<h2>Create a new {% block submit_type %}{% endblock %}</h2>
+<form  method="post">
+    {% csrf_token %}
+    <table>
+    {{ form.as_table }}
+</table>
+    <button type="submit">Submit</button>
+</form>
+
+{% endblock %}
