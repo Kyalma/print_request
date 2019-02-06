@@ -37,7 +37,7 @@ class SubmissionModel(models.Model):
     designation = models.CharField(max_length=255, blank=False)
     about = models.TextField(blank=True)
     stl = models.FileField(blank=False)
-    id_material = models.ForeignKey(
+    material = models.ForeignKey(
         ConsumableModel, on_delete=models.SET_NULL, blank=False)
     copies = models.IntegerField(default=0)
     submission_date = models.DateField(auto_now_add=True)
@@ -52,9 +52,9 @@ class SlicerParamsModel(models.Model):
     Those parameters are used into the final slicing
     """
     id_params = models.UUIDField(primary_key=True, default=uuid.uuid4)
-    id_submission = models.ForeignKey(
+    submission = models.ForeignKey(
         SubmissionModel, on_delete=models.CASCADE, blank=False)
-    id_printer = models.ForeignKey(
+    printer = models.ForeignKey(
         PrinterModel, on_delete=models.SET_NULL, blank=False)
     hotend_diameter = models.FloatField()
     layer_resolution = models.IntegerField()
