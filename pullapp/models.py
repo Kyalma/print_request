@@ -4,14 +4,14 @@ from django.contrib.postgres.fields import ArrayField
 from django.db import models
 
 
-DEFAULT_STATUS = '0'
+DEFAULT_STATUS = 'SOUMIS'
 STATUS_IMPRESSION = (
-    ('0', 'Soumis'),
-    ('1', 'Validé'),
-    ('2', 'En attente'),
-    ('3', 'Refusé'),
-    ('4', 'Impression'),
-    ('5', 'Imprimé')
+    ('SOUMIS', 'Soumis'),
+    ('VALIDE', 'Validé'),
+    ('EN ATTENTE', 'En attente'),
+    ('REFUSE', 'Refusé'),
+    ('IMPRESSION', 'Impression'),
+    ('IMPRIME', 'Imprimé')
 )
 
 
@@ -39,7 +39,7 @@ class SubmissionModel(models.Model):
     submission_date = models.DateField(auto_now_add=True)
     update_date = models.DateField(auto_now=True)
     status = models.CharField(
-        max_length=1, choices=STATUS_IMPRESSION, default=DEFAULT_STATUS)
+        max_length=10, choices=STATUS_IMPRESSION, default=DEFAULT_STATUS)
 
 
 class SlicerParamsModel(models.Model):
