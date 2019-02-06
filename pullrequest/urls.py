@@ -15,11 +15,21 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.conf import settings
 from django.conf.urls import url
+from django.conf.urls.static import static
 
 from rest_framework_swagger.views import get_swagger_view
 
+from pullapp import views
+
 urlpatterns = [
     path('admin/', admin.site.urls),
-    url(r'^docs/$', get_swagger_view(title='Print Request API'))
-]
+    url(r'^docs/$', get_swagger_view(title='Print Request API')),
+    url(r'^submission/list/$', views.SubmissionListGenericAPI.as_view()),
+    url(r'^submission/$', views.SubmissionPostGenericAPI.as_view()),
+    url(r'^submission/(?P<id>\d+)/$', views.SubmissionGenericAPI.as_view()),
+    url(r'^submission/user/(?P<user_id>\d+)/list/$',
+        views.UserSubmissionListGenericAPI.as_view()),
+
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
