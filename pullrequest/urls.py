@@ -27,9 +27,12 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     url(r'^docs/$', get_swagger_view(title='Print Request API')),
     url(r'^submission/list/$', views.SubmissionListGenericAPI.as_view()),
-    url(r'^submission/$', views.SubmissionPostGenericAPI.as_view()),
+    url(r'^submission/create/$', views.SubmissionCreateGenericAPI.as_view()),
     url(r'^submission/(?P<id>\d+)/$', views.SubmissionGenericAPI.as_view()),
     url(r'^submission/user/(?P<user_id>\d+)/list/$',
         views.UserSubmissionListGenericAPI.as_view()),
+    url(r'^consumable/list/$', views.ConsumableListGenericAPI.as_view()),
+    url(r'^consumable/create/$', views.ConsumableCreateGenericAPI.as_view()),
+    url(r'^consumable/(?P<id>\d+)/$', views.ConsumableGenericAPI.as_view()),
 
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

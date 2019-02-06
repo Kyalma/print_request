@@ -3,7 +3,9 @@ from django.shortcuts import render
 from rest_framework import mixins, generics
 
 from pullapp.serializers import SubmissionSerializer
+from pullapp.serializers import ConsumableSerializer
 from pullapp.models import SubmissionModel
+from pullapp.models import ConsumableModel
 
 
 class SubmissionListGenericAPI(mixins.ListModelMixin,
@@ -18,8 +20,8 @@ class SubmissionListGenericAPI(mixins.ListModelMixin,
         return self.list(request, *args, **kwargs)
 
 
-class SubmissionPostGenericAPI(mixins.CreateModelMixin,
-                               generics.GenericAPIView):
+class SubmissionCreateGenericAPI(mixins.CreateModelMixin,
+                                 generics.GenericAPIView):
     serializer_class = SubmissionSerializer
     queryset = SubmissionModel.objects.all()
 
@@ -32,6 +34,7 @@ class SubmissionPostGenericAPI(mixins.CreateModelMixin,
 
 class SubmissionGenericAPI(mixins.RetrieveModelMixin,
                            mixins.UpdateModelMixin,
+                           mixins.DestroyModelMixin,
                            generics.GenericAPIView):
     serializer_class = SubmissionSerializer
     queryset = SubmissionModel.objects.all()
@@ -40,13 +43,19 @@ class SubmissionGenericAPI(mixins.RetrieveModelMixin,
         """
         Retreive a submission
         """
-        return self.retreive(request, *args, **kwargs)
+        return self.retrieve(request, *args, **kwargs)
 
     def patch(self, request, *args, **kwargs):
         """
         Update a submission
         """
         return self.partial_update(request, *args, **kwargs)
+
+    def delete(self, request, *args, **kargs):
+        """
+        Delete a submission
+        """
+        return self.destroy(request, *args, **kwargs)
 
 
 class UserSubmissionListGenericAPI(mixins.ListModelMixin,
@@ -57,5 +66,57 @@ class UserSubmissionListGenericAPI(mixins.ListModelMixin,
     def get(self, request, *args, **kwargs):
         """
         List all submission from a user
+        """
+        return self.list(request, *args, **kwargs)
+
+
+class ConsumableGenericAPI(mixins.RetrieveModelMixin,
+                           mixins.UpdateModelMixin,
+                           mixins.DestroyModelMixin,
+                           generics.GenericAPIView):
+    serializer_class = ConsumableSerializer
+    queryset = ConsumableModel.objects.all()
+
+    def get(self, request, *args, **kwargs):
+        """
+        Retreive a consumable
+        """
+        return self.retrieve(request, *args, **kwargs)
+
+    def patch(self, request, *args, **kwargs):
+        """
+        Update is a consumable is avaialble or not
+        other fields should be read-only
+        """
+        # TODO
+        return self.partial_update(request, *args, **kwargs)
+
+    def delete(self, request, *args, **kargs):
+        """
+        Delete a consumable
+        """
+        return self.destroy(request, *args, **kwargs)
+
+
+class ConsumableCreateGenericAPI(mixins.CreateModelMixin,
+                                 generics.GenericAPIView):
+    serializer_class = ConsumableSerializer
+    queryset = ConsumableModel.objects.all()
+
+    def post(self, request, *args, **kwargs):
+        """
+        Retreive a consumable
+        """
+        return self.create(request, *args, **kwargs)
+
+
+class ConsumableListGenericAPI(mixins.ListModelMixin,
+                               generics.GenericAPIView):
+    serializer_class = ConsumableSerializer
+    queryset = ConsumableModel.objects.all()
+
+    def get(self, request, *args, **kwargs):
+        """
+        List all the consumables
         """
         return self.list(request, *args, **kwargs)
