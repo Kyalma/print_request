@@ -107,4 +107,3 @@ class SlicerParamsModel(models.Model):
     hotend_diameter = models.FloatField()
     layer_resolution = models.IntegerField()
     support = models.BooleanField(default=False)
-
