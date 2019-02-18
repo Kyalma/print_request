@@ -34,7 +34,7 @@ urlpatterns = [
         views.UserSubmissionListGenericAPI.as_view()),
     url(r'^consumable/list/$', views.ConsumableListGenericAPI.as_view()),
     url(r'^consumable/create/$', views.ConsumableCreateGenericAPI.as_view()),
-    url(r'^consumable/(?P<id_consumable>[\w\-]+)/$',
+    url(r'^consumable/(?P<id_material>[\w\-]+)/$',
         views.ConsumableGenericAPI.as_view()),
     url(r'^printer/list/$', views.PrinterListGenericAPI.as_view()),
     url(r'^printer/create/$', views.PrinterCreateGenericAPI.as_view()),
