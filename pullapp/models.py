@@ -1,5 +1,6 @@
 import uuid
 
+from django.core.validators import MinValueValidator
 from django.contrib.auth import get_user_model
 from django.contrib.postgres.fields import ArrayField
 from django.db import models
@@ -27,9 +28,12 @@ class PrinterModel(models.Model):
         models.FloatField(), blank=False, default=list([0.2]))
     hotend_size = ArrayField(
         models.FloatField(), blank=False, default=list([0.4]))
-    x_size = models.IntegerField(blank=False)
-    y_size = models.IntegerField(blank=False)
-    z_size = models.IntegerField(blank=False)
+    x_size = models.IntegerField(
+        blank=False, validators=[MinValueValidator(1)])
+    y_size = models.IntegerField(
+        blank=False, validators=[MinValueValidator(1)])
+    z_size = models.IntegerField(
+        blank=False, validators=[MinValueValidator(1)])
     dual_extruder = models.BooleanField(default=False)
     heated_bed = models.BooleanField(default=False)
 
