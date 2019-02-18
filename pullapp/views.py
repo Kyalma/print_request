@@ -3,7 +3,9 @@ from django.shortcuts import render
 from rest_framework import mixins, generics
 
 from pullapp.serializers import SubmissionSerializer
+from pullapp.serializers import SubmissionCreateOnlySerializer
 from pullapp.serializers import ConsumableSerializer
+from pullapp.serializers import ConsumableCreateOnlySerializer
 from pullapp.serializers import PrinterSerializer
 from pullapp.serializers import SlicerParamsSerializer
 from pullapp.models import SubmissionModel
@@ -26,7 +28,7 @@ class SubmissionListGenericAPI(mixins.ListModelMixin,
 
 class SubmissionCreateGenericAPI(mixins.CreateModelMixin,
                                  generics.GenericAPIView):
-    serializer_class = SubmissionSerializer
+    serializer_class = SubmissionCreateOnlySerializer
     queryset = SubmissionModel.objects.all()
 
     def post(self, request, *args, **kwargs):
@@ -41,6 +43,7 @@ class SubmissionGenericAPI(mixins.RetrieveModelMixin,
                            mixins.DestroyModelMixin,
                            generics.GenericAPIView):
     serializer_class = SubmissionSerializer
+    lookup_field = 'id_submission'
     queryset = SubmissionModel.objects.all()
 
     def get(self, request, *args, **kwargs):
@@ -67,6 +70,8 @@ class UserSubmissionListGenericAPI(mixins.ListModelMixin,
     serializer_class = SubmissionSerializer
     queryset = SubmissionModel.objects.all()  # NO
 
+    # TODO: add get_queryset for user=user
+
     def get(self, request, *args, **kwargs):
         """
         List all submission from a user
@@ -79,6 +84,7 @@ class ConsumableGenericAPI(mixins.RetrieveModelMixin,
                            mixins.DestroyModelMixin,
                            generics.GenericAPIView):
     serializer_class = ConsumableSerializer
+    lookup_field = 'id_material'
     queryset = ConsumableModel.objects.all()
 
     def get(self, request, *args, **kwargs):
@@ -104,7 +110,7 @@ class ConsumableGenericAPI(mixins.RetrieveModelMixin,
 
 class ConsumableCreateGenericAPI(mixins.CreateModelMixin,
                                  generics.GenericAPIView):
-    serializer_class = ConsumableSerializer
+    serializer_class = ConsumableCreateOnlySerializer
     queryset = ConsumableModel.objects.all()
 
     def post(self, request, *args, **kwargs):

@@ -5,11 +5,23 @@ from pullapp.models import PrinterModel
 from pullapp.models import SlicerParamsModel
 
 
+class SubmissionCreateOnlySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = SubmissionModel
+        fields = ('designation', 'about', 'stl', 'material', 'copies')
+
+
 class SubmissionSerializer(serializers.ModelSerializer):
     class Meta:
         model = SubmissionModel
         fields = ('designation', 'about', 'stl', 'material', 'copies')
         read_only_fields = ('stl', )
+
+
+class ConsumableCreateOnlySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ConsumableModel
+        fields = ('consumable', 'variant', 'diameter', 'available')
 
 
 class ConsumableSerializer(serializers.ModelSerializer):
