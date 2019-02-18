@@ -131,6 +131,7 @@ class PrinterGenericAPI(mixins.RetrieveModelMixin,
                         mixins.DestroyModelMixin,
                         generics.GenericAPIView):
     serializer_class = PrinterSerializer
+    lookup_field = 'id_printer'
     queryset = PrinterModel.objects.all()
 
     def get(self, request, *args, **kwargs):
@@ -146,7 +147,7 @@ class PrinterGenericAPI(mixins.RetrieveModelMixin,
         # TODO
         return self.partial_update(request, *args, **kwargs)
 
-    def delete(self, request, *args, **kargs):
+    def delete(self, request, *args, **kwargs):
         """
         Delete a printer
         """
