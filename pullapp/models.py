@@ -92,6 +92,7 @@ class SubmissionModel(models.Model):
     update_date = models.DateField(auto_now=True)
     status = models.CharField(
         max_length=10, choices=STATUS_IMPRESSION, default=DEFAULT_STATUS)
+    # TODO: add user id
 
 
 class SlicerParamsModel(models.Model):

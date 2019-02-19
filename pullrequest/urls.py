@@ -21,25 +21,33 @@ from django.conf.urls.static import static
 
 from rest_framework_swagger.views import get_swagger_view
 
-from pullapp import views
+import pullapp.views.front_views as front_views
+import pullapp.views.rest_views as rest_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     url(r'^docs/$', get_swagger_view(title='Print Request API')),
-    url(r'^submission/list/$', views.SubmissionListGenericAPI.as_view()),
-    url(r'^submission/create/$', views.SubmissionCreateGenericAPI.as_view()),
+    url(r'^submission/list/$',
+        rest_views.SubmissionListGenericAPI.as_view()),
+    url(r'^submission/create/$',
+        rest_views.SubmissionCreateGenericAPI.as_view()),
     url(r'^submission/(?P<id_submission>[\w\-]+)/$',
-        views.SubmissionGenericAPI.as_view()),
+        rest_views.SubmissionGenericAPI.as_view()),
     url(r'^submission/user/(?P<user_id>[\w\-]+)/list/$',
-        views.UserSubmissionListGenericAPI.as_view()),
-    url(r'^consumable/list/$', views.ConsumableListGenericAPI.as_view()),
-    url(r'^consumable/create/$', views.ConsumableCreateGenericAPI.as_view()),
+        rest_views.UserSubmissionListGenericAPI.as_view()),
+    url(r'^consumable/list/$',
+        rest_views.ConsumableListGenericAPI.as_view()),
+    url(r'^consumable/create/$',
+        rest_views.ConsumableCreateGenericAPI.as_view()),
     url(r'^consumable/(?P<id_material>[\w\-]+)/$',
-        views.ConsumableGenericAPI.as_view()),
-    url(r'^printer/list/$', views.PrinterListGenericAPI.as_view()),
-    url(r'^printer/create/$', views.PrinterCreateGenericAPI.as_view()),
+        rest_views.ConsumableGenericAPI.as_view()),
+    url(r'^printer/list/$',
+        rest_views.PrinterListGenericAPI.as_view()),
+    url(r'^printer/create/$',
+        rest_views.PrinterCreateGenericAPI.as_view()),
     url(r'^printer/(?P<id_printer>[\w\-]+)/$',
-        views.PrinterGenericAPI.as_view()),
+        rest_views.PrinterGenericAPI.as_view()),
     url(r'^slice/(?P<id_submission>[\w\-]+)/$',
-        views.SlicerParamGenericAPI.as_view()),
+        rest_views.SlicerParamGenericAPI.as_view()),
+    url(r'^signup/$', front_views.signup, name='signup')
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

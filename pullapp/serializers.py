@@ -18,6 +18,12 @@ class SubmissionSerializer(serializers.ModelSerializer):
         read_only_fields = ('stl', )
 
 
+class SubmissionListAllSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = SubmissionModel
+        fields = '__all__'
+
+
 class ConsumableCreateOnlySerializer(serializers.ModelSerializer):
     class Meta:
         model = ConsumableModel
@@ -31,6 +37,12 @@ class ConsumableSerializer(serializers.ModelSerializer):
         read_only_fields = ('consumable', 'variant', 'diameter')
 
 
+class ConsumableListAllSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ConsumableModel
+        fields = '__all__'
+
+
 class PrinterSerializer(serializers.ModelSerializer):
     class Meta:
         model = PrinterModel
@@ -38,7 +50,19 @@ class PrinterSerializer(serializers.ModelSerializer):
                   'x_size', 'y_size', 'z_size', 'dual_extruder', 'heated_bed')
 
 
+class PrinterListAllSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PrinterModel
+        fields = '__all__'
+
+
 class SlicerParamsSerializer(serializers.ModelSerializer):
     class Meta:
         model = SlicerParamsModel
         fields = ('printer', 'hotend_diameter', 'layer_resolution', 'support')
+
+
+class SlicerParamsListAllSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = SlicerParamsModel
+        fields = '__all__'

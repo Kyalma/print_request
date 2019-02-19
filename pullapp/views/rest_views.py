@@ -4,10 +4,14 @@ from rest_framework import mixins, generics
 
 from pullapp.serializers import SubmissionSerializer
 from pullapp.serializers import SubmissionCreateOnlySerializer
+from pullapp.serializers import SubmissionListAllSerializer
 from pullapp.serializers import ConsumableSerializer
 from pullapp.serializers import ConsumableCreateOnlySerializer
+from pullapp.serializers import ConsumableListAllSerializer
 from pullapp.serializers import PrinterSerializer
+from pullapp.serializers import PrinterListAllSerializer
 from pullapp.serializers import SlicerParamsSerializer
+from pullapp.serializers import SlicerParamsListAllSerializer
 from pullapp.models import SubmissionModel
 from pullapp.models import ConsumableModel
 from pullapp.models import PrinterModel
@@ -16,7 +20,7 @@ from pullapp.models import SlicerParamsModel
 
 class SubmissionListGenericAPI(mixins.ListModelMixin,
                                generics.GenericAPIView):
-    serializer_class = SubmissionSerializer
+    serializer_class = SubmissionListAllSerializer
     queryset = SubmissionModel.objects.all()
 
     def get(self, request, *args, **kwargs):
@@ -115,14 +119,14 @@ class ConsumableCreateGenericAPI(mixins.CreateModelMixin,
 
     def post(self, request, *args, **kwargs):
         """
-        Retreive a consumable
+        Create a consumable
         """
         return self.create(request, *args, **kwargs)
 
 
 class ConsumableListGenericAPI(mixins.ListModelMixin,
                                generics.GenericAPIView):
-    serializer_class = ConsumableSerializer
+    serializer_class = ConsumableListAllSerializer
     queryset = ConsumableModel.objects.all()
 
     def get(self, request, *args, **kwargs):
@@ -167,14 +171,14 @@ class PrinterCreateGenericAPI(mixins.CreateModelMixin,
 
     def post(self, request, *args, **kwargs):
         """
-        Retreive a printer
+        Create a printer
         """
         return self.create(request, *args, **kwargs)
 
 
 class PrinterListGenericAPI(mixins.ListModelMixin,
                             generics.GenericAPIView):
-    serializer_class = PrinterSerializer
+    serializer_class = PrinterListAllSerializer
     queryset = PrinterModel.objects.all()
 
     def get(self, request, *args, **kwargs):
