@@ -1,0 +1,12 @@
+{% extends "pullapp/base.html" %}
+{% block title %}My account{% endblock %}
+{% block content %}
+
+<h2>My account informations</h2>
+<p>Username: {{ user.username }}</p>
+<p>Real name: {{ user.get_full_name }}</p>
+<p>Email: {{ user.email }}</p>
+<p>Access: {{ user.groups.all.0 }}</p>
+<p>Logged in since: {{ user.last_login }}</p>
+
+{% endblock %}

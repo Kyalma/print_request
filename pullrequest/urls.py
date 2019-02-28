@@ -14,10 +14,13 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
+from django.contrib.auth import views as auth_views
+from django.contrib.auth.decorators import login_required
 from django.urls import path
 from django.conf import settings
 from django.conf.urls import url
 from django.conf.urls.static import static
+from django.views.generic.base import TemplateView
 
 from rest_framework_swagger.views import get_swagger_view
 
@@ -25,6 +28,10 @@ import pullapp.views.front_views as front_views
 import pullapp.views.rest_views as rest_views
 
 urlpatterns = [
+    url(r'^$',
+        login_required(
+            TemplateView.as_view(template_name='pullapp/home.html')),
+        name='home'),
     path('admin/', admin.site.urls),
     url(r'^docs/$', get_swagger_view(title='Print Request API')),
     url(r'^submission/list/$',
@@ -49,5 +56,13 @@ urlpatterns = [
         rest_views.PrinterGenericAPI.as_view()),
     url(r'^slice/(?P<id_submission>[\w\-]+)/$',
         rest_views.SlicerParamGenericAPI.as_view()),
-    url(r'^signup/$', front_views.signup, name='signup')
+    url(r'^signup/$', front_views.signup, name='signup'),
+    url(r'^login/$', auth_views.LoginView.as_view(
+            template_name='pullapp/login.html',
+            redirect_authenticated_user=True), name='login'),
+    url(r'^logout/$', auth_views.LogoutView.as_view(), name='logout'),
+    url(r'^account/$',
+        login_required(
+            TemplateView.as_view(template_name='pullapp/account.html')),
+        name='account'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
