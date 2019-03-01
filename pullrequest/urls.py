@@ -20,12 +20,18 @@ from django.urls import path
 from django.conf import settings
 from django.conf.urls import url
 from django.conf.urls.static import static
-from django.views.generic.base import TemplateView
-
 from rest_framework_swagger.views import get_swagger_view
+
+from django.views.generic.base import TemplateView
+from django.views.generic.edit import FormView
+from django.views.generic.edit import CreateView
+
 
 import pullapp.views.front_views as front_views
 import pullapp.views.rest_views as rest_views
+
+from pullapp.forms import SubmissionForm
+from pullapp.forms import ConsumableForm
 
 urlpatterns = [
     url(r'^$',
@@ -65,4 +71,17 @@ urlpatterns = [
         login_required(
             TemplateView.as_view(template_name='pullapp/account.html')),
         name='account'),
+    url(r'^request/new/$',
+        login_required(
+            CreateView.as_view(
+                template_name='pullapp/submission.html',
+                form_class=SubmissionForm)),
+        name='submission'),
+    url(r'^material/new/$',
+        login_required(
+            CreateView.as_view(
+                template_name='pullapp/material.html',
+                form_class=ConsumableForm,
+                success_url='/')),
+        name='submission')
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
