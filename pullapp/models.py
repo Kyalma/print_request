@@ -53,6 +53,9 @@ class ConsumableModel(models.Model):
     diameter = models.FloatField(blank=False)
     available = models.BooleanField(default=True)
 
+    def __str__(self):
+        return f"{self.consumable} - {self.variant} - {self.diameter}mm"
+
 
 DEFAULT_STATUS = 'SOUMIS'
 STATUS_IMPRESSION = (
