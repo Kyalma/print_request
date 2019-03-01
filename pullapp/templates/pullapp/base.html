@@ -12,18 +12,19 @@
         </li>
         {% if perms.pullapp.add_submissionmodel %}
         <li class="nav-item">
-            <a class="nav-link" href="#">Create a request</a>
+            <a class="nav-link" href="/request/new/">Create a request</a>
         </li>
         {% endif %}
-        {% if perms.pullapp.add_slicermodel %}
+        {% if perms.pullapp.add_slicerparamsmodel %}
         <li class="nav-item">
             <a class="nav-link" href="#">Manage requests</a>
         </li>
         {% endif %}
-        <!--
+        {% if perms.pullapp.add_consumablemodel %}
         <li class="nav-item">
-            <a class="nav-link" href="#">Pricing</a>
-        </li> -->
+            <a class="nav-link" href="/material/new/">Add a material</a>
+        </li>
+        {% endif %}
         <li class="nav-item dropdown ml-auto">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Hello, {{ user.username }}
