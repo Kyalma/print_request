@@ -1,0 +1,174 @@
+info:
+  description: ''
+  title: ''
+  version: ''
+openapi: 3.0.0
+paths:
+  /consumable/{id_material}/:
+    delete:
+      description: Delete a consumable
+      operationId: consumable_delete
+      parameters:
+      - in: path
+        name: id_material
+        required: true
+        schema:
+          description: A UUID string identifying this consumable model.
+          title: id material
+          type: string
+      tags:
+      - consumable
+    get:
+      description: Retreive a consumable
+      operationId: consumable_read
+      parameters:
+      - in: path
+        name: id_material
+        required: true
+        schema:
+          description: A UUID string identifying this consumable model.
+          title: id material
+          type: string
+      tags:
+      - consumable
+    patch:
+      description: 'Update is a consumable is avaialble or not
+
+        other fields should be read-only'
+      operationId: consumable_partial_update
+      parameters:
+      - in: path
+        name: id_material
+        required: true
+        schema:
+          description: A UUID string identifying this consumable model.
+          title: id material
+          type: string
+      tags:
+      - consumable
+  /printer/{id_printer}/:
+    delete:
+      description: Delete a printer
+      operationId: printer_delete
+      parameters:
+      - in: path
+        name: id_printer
+        required: true
+        schema:
+          description: A UUID string identifying this printer model.
+          title: id printer
+          type: string
+      tags:
+      - printer
+    get:
+      description: Retreive a printer
+      operationId: printer_read
+      parameters:
+      - in: path
+        name: id_printer
+        required: true
+        schema:
+          description: A UUID string identifying this printer model.
+          title: id printer
+          type: string
+      tags:
+      - printer
+    patch:
+      description: Update is a printer feature
+      operationId: printer_partial_update
+      parameters:
+      - in: path
+        name: id_printer
+        required: true
+        schema:
+          description: A UUID string identifying this printer model.
+          title: id printer
+          type: string
+      tags:
+      - printer
+  /slice/{id_submission}/:
+    get:
+      description: Retrieve the current slicing params of a submission
+      operationId: slice_read
+      parameters:
+      - in: path
+        name: id_submission
+        required: true
+        schema:
+          description: ''
+          title: ''
+          type: string
+      tags:
+      - slice
+    patch:
+      description: Update the slicing params of a submission
+      operationId: slice_partial_update
+      parameters:
+      - in: path
+        name: id_submission
+        required: true
+        schema:
+          description: ''
+          title: ''
+          type: string
+      tags:
+      - slice
+    post:
+      description: 'Create slicing params for a submission
+
+        Only one per submission can exist
+
+        Return an error if there are existing params'
+      operationId: slice_create
+      parameters:
+      - in: path
+        name: id_submission
+        required: true
+        schema:
+          description: ''
+          title: ''
+          type: string
+      tags:
+      - slice
+  /submission/{id_submission}/:
+    delete:
+      description: Delete a submission
+      operationId: submission_delete
+      parameters:
+      - in: path
+        name: id_submission
+        required: true
+        schema:
+          description: A UUID string identifying this submission model.
+          title: id submission
+          type: string
+      tags:
+      - submission
+    get:
+      description: Retreive a submission
+      operationId: submission_read
+      parameters:
+      - in: path
+        name: id_submission
+        required: true
+        schema:
+          description: A UUID string identifying this submission model.
+          title: id submission
+          type: string
+      tags:
+      - submission
+    patch:
+      description: Update a submission
+      operationId: submission_partial_update
+      parameters:
+      - in: path
+        name: id_submission
+        required: true
+        schema:
+          description: A UUID string identifying this submission model.
+          title: id submission
+          type: string
+      tags:
+      - submission
+servers:
+- url: ''
